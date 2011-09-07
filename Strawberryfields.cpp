@@ -13,14 +13,23 @@ using namespace std;
 
 void printFields(vector<Field*> *fields)
 {
-	for(unsigned int i = 0; i< fields->size(); i++)
+	int total = 0;
+	
+	for(int i = 0; i< fields->size(); i++)
 	{
+		total += fields->at(i)->getTotal();
 		fields->at(i)->printField();
 	}
+
+	cout<<endl;
+	cout<<endl;
+
+	cout<<"Total cost  = "<<total;
 }
 
 int main()
 {
+	
 	vector<Field*> *fields;
 	fields = new vector<Field*>;
 	Initializer fr("Input.txt", fields);
