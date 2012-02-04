@@ -5,7 +5,12 @@
  *      Author: Carl Estabrook
  */
 #include "Greenhouse.h"
-
+/*
+ * constructor for Greenhouse
+ * @param - i - initializes top and bottom location in 2d array
+ * @param - k - initializes left and right positions
+ *
+ */
 Greenhouse::Greenhouse(int i, int k)
 {
 	left = k;
