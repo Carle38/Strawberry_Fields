@@ -3,6 +3,9 @@
  *
  *  Created on: Aug 26, 2011
  *      Author: Carl Estabrook
+ *
+ * This program solves the Strawberry fields problem at:
+ * http://www.itasoftware.com/careers/work-at-ita/hiring-puzzles.html
  */
 #include "Field.h"
 #include "Initializer.h"
@@ -10,7 +13,13 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+/*
+ * Prints output by calling printField() 
+ * on each individual field
+ *
+ * @param - *fields - vector of individual Field objects 
+ *           calculations completed at this point
+ */
 void printFields(vector<Field*> *fields)
 {
 	int total = 0;
@@ -32,11 +41,11 @@ int main()
 	
 	vector<Field*> *fields;
 	fields = new vector<Field*>;
-	Initializer fr("Input.txt", fields);
-    fr.initialize();
+	Initializer fr("Input.txt", fields); 
+    fr.initialize();                      // Initialize input line by line
 
     GreenHouseLogic gl(fields);
-    gl.calc();
+    gl.calc();                             // Greenhouse combination logic
 
     printFields(fields);
 
