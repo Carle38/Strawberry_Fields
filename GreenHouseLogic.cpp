@@ -11,7 +11,10 @@
 #include <vector>
 #include <iostream>
 using namespace std;
-
+/*
+ * constructor for GreenhouseLogic
+ *
+ */
 GreenHouseLogic::GreenHouseLogic(vector<Field*> *vf)
 {
 	m_fields = vf;
@@ -19,24 +22,35 @@ GreenHouseLogic::GreenHouseLogic(vector<Field*> *vf)
 	right = false;
 	bottom = false;
 }
-
+/*
+ * Calculates greenhouses for each individual field
+ *
+ */
 void GreenHouseLogic::calc()
 {
 	for(int i = 0; i < (int)m_fields->size(); i++)
 	{
-		calcGreenHouses(m_fields->at(i));
-	    firstCombine(m_fields->at(i));
+		calcGreenHouses(m_fields->at(i));           
+	    firstCombine(m_fields->at(i));              
 	    finalComb(m_fields->at(i));
 	}
 }
-
+/*
+ * combines Greenhouse recs until number of Greenhouse recs equals number of recs to consider
+ * determined during input
+ *
+ */
 void GreenHouseLogic::firstCombine(Field *F)
 {
-	while(getvecSize(F) > F->getTotalRecs())
+	while(getvecSize(F) > F->getTotalRecs())  // F->getTotalRecs() returns number of recs to consider 
 	{
-		combineGreenHouses(F,100);
+		combineGreenHouses(F, 100);
 	}
 }
+/*
+ * Final combination of Greenhouse recs based on no more than 9 empty plots
+ *
+ */
 void GreenHouseLogic::finalComb(Field *F)
 {
 	finalCombine = true;
@@ -46,6 +60,13 @@ void GreenHouseLogic::finalComb(Field *F)
 		combineGreenHouses(F,9);
 	}
 }
+/* 
+ * loops through vector of Greenhouses looking for lowest cost based on fewest empty plots
+ * Only 1 combintion per call to combineGreenHouses
+ * @param - *F - pointer to individual field object
+ * @param - c - initial cost value (empty plots)
+ *
+ */
 void GreenHouseLogic::combineGreenHouses(Field *F, int c)
 {
 	int high;
@@ -64,6 +85,7 @@ void GreenHouseLogic::combineGreenHouses(Field *F, int c)
 						{
 							if(temp <= cost)
 							{
+								
 								fcombine = true;
 								cost = temp;
 								if(i < k)
@@ -90,7 +112,10 @@ void GreenHouseLogic::combineGreenHouses(Field *F, int c)
 		combine(F, low, high);
 }
 
-
+/*
+ * returns vec size (number of greenhouses)
+ *
+ */
 int GreenHouseLogic::getvecSize(Field *F)
 {
 	int size = 0;
@@ -104,8 +129,13 @@ int GreenHouseLogic::getvecSize(Field *F)
 	return size;
 }
 
+/*
+ * Combines 2 greenhouse rectangles and updates greenhouse vector with new greenhouse
+ *
+ */
 void GreenHouseLogic::combine(Field *F, int low, int high)
 {
+	
 	finalCombine = true;
 	F->getGreenhouses()->at(low)->setTop(ghstat[0]);
 	F->getGreenhouses()->at(low)->setleft(ghstat[1]);
@@ -129,7 +159,11 @@ void GreenHouseLogic::combine(Field *F, int low, int high)
 		}
 	}
 }
-
+/*
+ * calculaes cost(empty plots) of combining Greenhouses
+ * returns cost value
+ *
+ */
 int GreenHouseLogic::combineforCost(Greenhouse *gh1, Greenhouse *gh2, Field *F)
 {
 	int count = 0;
@@ -173,7 +207,11 @@ int GreenHouseLogic::combineforCost(Greenhouse *gh1, Greenhouse *gh2, Field *F)
 	ghstats[4] = plots;
 	return count;
 }
-
+/*
+ * calculates initial green houses covering all @(roses) with no empty plots
+ * @param - *F - single Field object
+ *
+ */
 void GreenHouseLogic::calcGreenHouses(Field *F)
 {
 	int h = F->ploth;
@@ -236,7 +274,10 @@ void GreenHouseLogic::calcGreenHouses(Field *F)
 	    	}
 		}
 }
-
+/* 
+ * calculates height of new greenhouse during calcGreenhouses()
+ * 
+ */
 void GreenHouseLogic::getHeight(Field *F, Greenhouse *gh)
 {
 	int left = gh->getleft();
