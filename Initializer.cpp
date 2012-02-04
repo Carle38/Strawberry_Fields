@@ -12,13 +12,21 @@
 #include <sstream>
 #include <vector>
 using namespace std;
-
+/*
+ * constructor 
+ * @param - s - input file name
+ * @param - *vf - pointer to vector of fields
+ *
+ */
 Initializer::Initializer(string s, vector<Field*> *vf)
 {
 	m_filename = s;
 	m_fields = vf;
 	m_linenum = 0;
 }
+/*
+ * Processes input line by line
+ */
 void Initializer::initialize()
 {
 	string str;
@@ -32,7 +40,7 @@ void Initializer::initialize()
 	}
 	textfile.close();
 }
-
+// process line
 void Initializer::processline(string st)
 {
 	string buff;
